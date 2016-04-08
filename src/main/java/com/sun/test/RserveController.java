@@ -41,13 +41,9 @@ public class RserveController {
 	public void ff(Model model) throws Exception{
 		List<TestVO> data = r.ff();
 		System.out.println(data);
+		r.rconnect();
 		
-		
-	}
-	
-	
-
-	 
+	} 
 	
 	
 	@RequestMapping(value = "/rserve", method = RequestMethod.GET)
