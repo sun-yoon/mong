@@ -57,11 +57,20 @@ public class Rservice {
             connection.eval("library(arules)");
             connection.eval("dbdata <- read.csv(\"d:/category.txt\")");
             connection.eval("rioter.list <- split(dbdata$category, dbdata$user)");
-            connection.eval("rioter.list <- as(rioter.list, \"transactions\")");
+            connection.eval("rioter.transaction <- as(rioter.list, \"transactions\")");
             connection.eval("rules = apriori(rioter.transaction)");
             connection.eval("rule.list <- as.data.frame(inspect(rules))");
             connection.eval("write.csv(rule.list, \"d:/rule.csv\")");            
-             
+            connection.eval("song <- subset.data.frame(rule.list, select = c(lhs,rhs,lift))");
+            connection.eval("library(recommenderlab)");
+            connection.eval("song <- as(song,\"realRatingMatrix\")");
+            connection.eval("split.matrix <- sample(nrow(song),replace=FALSE)");
+            connection.eval("training <- song[split.matrix,]");
+            connection.eval("test <- song[-split.matrix,]");
+            connection.eval("r <- Recommender(training, method= \"POPULAR\")");
+            connection.eval("recom <- predict(r, song[1:4], type=\"ratings\")");
+            connection.eval("mong <- as(recom, \"matrix\")");
+            connection.eval("write.csv(mong, \"d:/recom.txt\")");
          } catch (RserveException e) {
              e.printStackTrace();
          }finally{
