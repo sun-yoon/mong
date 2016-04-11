@@ -262,5 +262,15 @@ public class Rservice {
 		return recommendMap;
 	}
 	
+	public List<TestVO> getCategory()throws Exception{
+		List<TestVO> testVO = dao.getCategory();
+		
+		for(int i = 0; i<testVO.size();i++){
+			String cg = testVO.get(i).getCategory();
+			System.out.println(cg);
+			
+		}
+		return testVO;
+	}
 	
 }

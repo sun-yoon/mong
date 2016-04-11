@@ -23,6 +23,7 @@ import org.springframework.web.accept.HeaderContentNegotiationStrategy;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.sun.domain.Person;
 import com.sun.domain.TestVO;
 import com.sun.service.Rservice;
 
@@ -70,6 +71,8 @@ public class RserveController {
              connection.close();
          }
      }
+	
+	
 	
 	@RequestMapping(value="/lib",  method = RequestMethod.GET)
 	public void lib(Model model) throws REXPMismatchException{
@@ -121,5 +124,11 @@ public class RserveController {
          }finally{
              connection.close();
          }
+	}
+	
+	@RequestMapping(value="/getCategory")
+	public void getCategory(Model model) throws Exception{
+		List<TestVO> testVO = r.getCategory();
+		model.addAttribute("testVO",testVO);
 	}
 }

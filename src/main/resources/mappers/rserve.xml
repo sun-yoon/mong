@@ -12,5 +12,13 @@
         
       ]]>
    </select>
- 
+ 	
+ 	<select id="getCategory" resultType="TestVo">
+      <![CDATA[
+         select *
+         from favor_category
+         where mem_snum = 1
+        
+      ]]>
+   </select>
 </mapper>
