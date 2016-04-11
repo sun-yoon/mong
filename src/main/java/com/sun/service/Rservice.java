@@ -1,7 +1,10 @@
 package com.sun.service;
 
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.FileReader;
 import java.io.FileWriter;
+import java.io.IOException;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -68,8 +71,8 @@ public class Rservice {
             connection.eval("training <- song[split.matrix,]");
             connection.eval("test <- song[-split.matrix,]");
             connection.eval("r <- Recommender(training, method= \"POPULAR\")");
-            connection.eval("recom <- predict(r, song[1:4], type=\"ratings\")");
-            connection.eval("mong <- as(recom, \"matrix\")");
+            connection.eval("recom <- predict(r, song[1:4])");
+            connection.eval("mong <- as(recom, \"list\")");
             connection.eval("write.csv(mong, \"d:/recom.txt\")");
          } catch (RserveException e) {
              e.printStackTrace();
@@ -78,6 +81,47 @@ public class Rservice {
          }
 	}
 	
+	public void readLine() throws Exception{
+		FileReader fr = null;
+		FileWriter fw = null;
+		
+		BufferedReader br = null;
+		BufferedWriter bw = null;
+		
+		try{
+			fr = new FileReader("d:/recom.txt");
+			br = new BufferedReader(fr);
+			
+			fw = new FileWriter("d:/recom(c).txt");
+			bw = new BufferedWriter(fw);
+			
+			String s = null;
+			s= br.readLine();
+			s= s.replace("c","");
+			s= s.replace("\"","");
+			
+			String [] result = s.split(",");
+			for(int i =0; i < result.length; i++){
+				bw.write(result[i]);
+				bw.newLine();
+				System.out.println(result[i]);
+			}
+			
+		
+		}catch(Exception e){
+		
+			e.printStackTrace();
 	
+		}finally{
+			
+			if(br != null) try{br.close();}catch(IOException e){}
+			if(fr != null) try{fr.close();}catch(IOException e){}
+			
+			if(bw != null) try{bw.close();}catch(IOException e){}
+			if(fw != null) try{fw.close();}catch(IOException e){}
+			
+		}
+	
+	}
 	
 }
