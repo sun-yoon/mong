@@ -212,13 +212,14 @@ public class Rservice {
 	
 	}
 	
-	public Map<String, ArrayList<String>> mapping() throws Exception {
-		Map<String, ArrayList<String>> recommendMap = new HashMap<String, ArrayList<String>>();
-		ArrayList<String> recommendCategory = new ArrayList<String>();
+	public Map<String, String> mapping() throws Exception {
+		Map<String, String> recommendMap = new HashMap<String, String>();
+		String recom="";
 		FileReader fr1 = null;		
 		BufferedReader br1 = null;
 		FileReader fr2 = null;		
 		BufferedReader br2 = null;	
+		
 		
 		try{
 			fr1 = new FileReader("d:/lift(c).txt");
@@ -226,21 +227,27 @@ public class Rservice {
 			fr2 = new FileReader("d:/recom(c).txt");
 			br2 = new BufferedReader(fr2);
 			
-			String s1, s2;
-			while((s1 = br1.readLine())!= null && (s2 = br2.readLine())!= null){
-				if(!s1.equals("") && !s2.equals("")) {
-					String[] split1 = s1.split("-");
-					String[] split2 = s2.split("-");
-					recommendCategory.add(split1[2]);
-					System.out.println(split1[2]);
-					recommendCategory.add(split2[0]);
-					System.out.println(split2[0]);
-					recommendCategory.add(split2[1]);
-					System.out.println(split2[1]);
-					recommendMap.put(split1[1], recommendCategory);
-					
+			String s1 = br1.readLine();
+			String s2 = br2.readLine();
+			String prestr=null;
+			
+			while((s1 = br1.readLine())!= null){
+				
+				String[] split1 = s1.split("-");
+				if(split1[1].equals(prestr)) {
+					recom = split1[2]+","+recom;
+					recommendMap.put(split1[1], recom);
 				}
-				recommendCategory.clear();
+				else {					
+					s2 = br2.readLine();					
+					String[] split2 = s2.split("-");
+
+					recom = split1[2]+","+split2[0]+","+split2[1];					
+					
+					recommendMap.put(split1[1], recom);
+					
+				}				
+				prestr = split1[1];				
 			}	
 		}catch(Exception e){		
 			e.printStackTrace();
