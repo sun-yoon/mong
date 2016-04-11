@@ -9,6 +9,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.inject.Inject;
 
@@ -107,7 +109,22 @@ public class Rservice {
 				s= s.replace("lift","");
 //				s= s.replace(",","");
 				s= s.replace("\"","");
-			
+				s= s.replace("0","");
+				s= s.replace("1","");
+				s= s.replace("2","");
+				s= s.replace("3","");
+				s= s.replace("4","");
+				s= s.replace("5","");
+				s= s.replace("6","");
+				s= s.replace("7","");
+				s= s.replace("8","");
+				s= s.replace("9","");
+				s= s.replace(",{","-");
+				s= s.replace("}","");
+				s= s.replace(",.","");
+				s= s.replace(",,,","");
+				
+				System.out.println(s);
 				bw.write(s);
 				bw.newLine();
 				
@@ -150,6 +167,27 @@ public class Rservice {
 			s= s.replace("c","");
 			s= s.replace("\"","");
 			
+			s= s.replace("......","-");
+			s= s.replace("...","");
+			s= s.replace(".","");
+			String pattern ="[^0-9]";
+			Pattern r = Pattern.compile(pattern);
+
+		     
+		     Matcher m = r.matcher(s);
+		    System.out.println(m.replaceAll("")); 
+		
+//			s= s.replace("0","");
+//			s= s.replace("1","");
+//			s= s.replace("2","");
+//			s= s.replace("3","");
+//			s= s.replace("4","");
+//			s= s.replace("5","");
+//			s= s.replace("6","");
+//			s= s.replace("7","");
+//			s= s.replace("8","");
+//			s= s.replace("9","");
+			
 			String [] result = s.split(",");
 			for(int i =0; i < result.length; i++){
 				bw.write(result[i]);
@@ -174,29 +212,28 @@ public class Rservice {
 	
 	}
 	
-//	public void analysis()throws Exception{
-//		
-//		FileReader fr1 = new FileReader("d:/lift(c).txt");
-//		BufferedReader br1 = new BufferedReader(fr1);
-//		String s = null;
-//		while((s= br1.readLine())!=null){
-//			String [] result = s.split(",");
-//			for(int i =0; i < result.length; i++){
-//				
-//				System.out.println(result[i]);
-//			}
-//		}
-//		
-//		
-//		
-//		FileReader fr2 = new FileReader("d:/lift(c).txt");
-//		BufferedReader br2 = new BufferedReader(fr2);
-//		
-//		
-//		Map<String, ArrayList<String>> analysis = new HashMap<String,ArrayList<String>>();
-//		
-//		
-//		
-//	}
-//	
+	public void analysis()throws Exception{
+		
+		FileReader fr1 = new FileReader("d:/lift(c).txt");
+		BufferedReader br1 = new BufferedReader(fr1);
+		String s = null;
+		while((s= br1.readLine())!=null){
+			String [] result = s.split(",");
+			for(int i =0; i < result.length; i++){
+			
+			}
+		}
+		
+		
+		
+		FileReader fr2 = new FileReader("d:/lift(c).txt");
+		BufferedReader br2 = new BufferedReader(fr2);
+		
+		
+		Map<String, ArrayList<String>> analysis = new HashMap<String,ArrayList<String>>();
+		
+		
+		
+	}
+	
 }
