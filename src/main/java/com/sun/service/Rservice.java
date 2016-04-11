@@ -5,7 +5,10 @@ import java.io.BufferedWriter;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -65,6 +68,8 @@ public class Rservice {
             connection.eval("rule.list <- as.data.frame(inspect(rules))");
             connection.eval("write.csv(rule.list, \"d:/rule.csv\")");            
             connection.eval("song <- subset.data.frame(rule.list, select = c(lhs,rhs,lift))");
+            connection.eval("song<-song[order(song[,\"lhs\"]),]");
+            connection.eval("write.csv(song,\"d:/lift.txt\")");
             connection.eval("library(recommenderlab)");
             connection.eval("song <- as(song,\"realRatingMatrix\")");
             connection.eval("split.matrix <- sample(nrow(song),replace=FALSE)");
@@ -81,7 +86,52 @@ public class Rservice {
          }
 	}
 	
-	public void readLine() throws Exception{
+	public void readLift() throws Exception{
+		FileReader fr = null;
+		FileWriter fw = null;
+		
+		BufferedReader br = null;
+		BufferedWriter bw = null;
+		
+		try{
+			fr = new FileReader("d:/lift.txt");
+			br = new BufferedReader(fr);
+			
+			fw = new FileWriter("d:/lift(c).txt");
+			bw = new BufferedWriter(fw);
+			
+			String s = null;
+			while((s= br.readLine())!=null){
+				s= s.replace("lhs","");
+				s= s.replace("rhs","");
+				s= s.replace("lift","");
+//				s= s.replace(",","");
+				s= s.replace("\"","");
+			
+				bw.write(s);
+				bw.newLine();
+				
+			}
+			
+		
+		}catch(Exception e){
+		
+			e.printStackTrace();
+	
+		}finally{
+			
+			if(br != null) try{br.close();}catch(IOException e){}
+			if(fr != null) try{fr.close();}catch(IOException e){}
+			
+			if(bw != null) try{bw.close();}catch(IOException e){}
+			if(fw != null) try{fw.close();}catch(IOException e){}
+			
+		}
+	
+	}
+	
+	
+	public void readRecom() throws Exception{
 		FileReader fr = null;
 		FileWriter fw = null;
 		
@@ -124,4 +174,29 @@ public class Rservice {
 	
 	}
 	
+//	public void analysis()throws Exception{
+//		
+//		FileReader fr1 = new FileReader("d:/lift(c).txt");
+//		BufferedReader br1 = new BufferedReader(fr1);
+//		String s = null;
+//		while((s= br1.readLine())!=null){
+//			String [] result = s.split(",");
+//			for(int i =0; i < result.length; i++){
+//				
+//				System.out.println(result[i]);
+//			}
+//		}
+//		
+//		
+//		
+//		FileReader fr2 = new FileReader("d:/lift(c).txt");
+//		BufferedReader br2 = new BufferedReader(fr2);
+//		
+//		
+//		Map<String, ArrayList<String>> analysis = new HashMap<String,ArrayList<String>>();
+//		
+//		
+//		
+//	}
+//	
 }

@@ -42,7 +42,8 @@ public class RserveController {
 		List<TestVO> data = r.ff();
 		System.out.println(data);
 		r.rconnect();
-		r.readLine();
+		r.readLift();
+		r.readRecom();
 		
 	} 
 	
