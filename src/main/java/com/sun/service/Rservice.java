@@ -212,28 +212,48 @@ public class Rservice {
 	
 	}
 	
-	public void analysis()throws Exception{
+	public Map<String, ArrayList<String>> mapping() throws Exception {
+		Map<String, ArrayList<String>> recommendMap = new HashMap<String, ArrayList<String>>();
+		ArrayList<String> recommendCategory = new ArrayList<String>();
+		FileReader fr1 = null;		
+		BufferedReader br1 = null;
+		FileReader fr2 = null;		
+		BufferedReader br2 = null;	
 		
-		FileReader fr1 = new FileReader("d:/lift(c).txt");
-		BufferedReader br1 = new BufferedReader(fr1);
-		String s = null;
-		while((s= br1.readLine())!=null){
-			String [] result = s.split(",");
-			for(int i =0; i < result.length; i++){
+		try{
+			fr1 = new FileReader("d:/lift(c).txt");
+			br1 = new BufferedReader(fr1);
+			fr2 = new FileReader("d:/recom(c).txt");
+			br2 = new BufferedReader(fr2);
 			
-			}
+			String s1, s2;
+			while((s1 = br1.readLine())!= null && (s2 = br2.readLine())!= null){
+				if(!s1.equals("") && !s2.equals("")) {
+					String[] split1 = s1.split("-");
+					String[] split2 = s2.split("-");
+					recommendCategory.add(split1[2]);
+					System.out.println(split1[2]);
+					recommendCategory.add(split2[0]);
+					System.out.println(split2[0]);
+					recommendCategory.add(split2[1]);
+					System.out.println(split2[1]);
+					recommendMap.put(split1[1], recommendCategory);
+					
+				}
+				recommendCategory.clear();
+			}	
+		}catch(Exception e){		
+			e.printStackTrace();
+		}finally{			
+			if(br1 != null) try{br1.close();}catch(IOException e){}
+			if(fr1 != null) try{fr1.close();}catch(IOException e){}
+			
+			if(br2 != null) try{br2.close();}catch(IOException e){}
+			if(fr2 != null) try{fr2.close();}catch(IOException e){}	
 		}
 		
-		
-		
-		FileReader fr2 = new FileReader("d:/lift(c).txt");
-		BufferedReader br2 = new BufferedReader(fr2);
-		
-		
-		Map<String, ArrayList<String>> analysis = new HashMap<String,ArrayList<String>>();
-		
-		
-		
+		return recommendMap;
 	}
+	
 	
 }

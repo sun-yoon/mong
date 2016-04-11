@@ -44,7 +44,7 @@ public class RserveController {
 		r.rconnect();
 		r.readLift();
 		r.readRecom();
-		r.analysis();
+		r.mapping();
 	} 
 	
 	
