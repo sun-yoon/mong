@@ -165,7 +165,7 @@ public class Rservice {
 			
 			String s = null;
 			s= br.readLine();
-			s= s.replace("c","");
+			s= s.replace("c...","");
 			s= s.replace("\"","");
 			
 			s= s.replace("......","-");
@@ -178,16 +178,16 @@ public class Rservice {
 		     Matcher m = r.matcher(s);
 		    System.out.println(m.replaceAll("")); 
 		
-//			s= s.replace("0","");
-//			s= s.replace("1","");
-//			s= s.replace("2","");
-//			s= s.replace("3","");
-//			s= s.replace("4","");
-//			s= s.replace("5","");
-//			s= s.replace("6","");
-//			s= s.replace("7","");
-//			s= s.replace("8","");
-//			s= s.replace("9","");
+			s= s.replace("0","");
+			s= s.replace("1","");
+			s= s.replace("2","");
+			s= s.replace("3","");
+			s= s.replace("4","");
+			s= s.replace("5","");
+			s= s.replace("6","");
+			s= s.replace("7","");
+			s= s.replace("8","");
+			s= s.replace("9","");
 			
 			String [] result = s.split(",");
 			for(int i =0; i < result.length; i++){
