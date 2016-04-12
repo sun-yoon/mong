@@ -1,13 +1,9 @@
 package com.sun.test;
 
-import java.io.FileReader;
-import java.io.IOException;
-import java.io.StringWriter;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
+import java.util.Set;
 
 import javax.inject.Inject;
 
@@ -19,12 +15,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.accept.HeaderContentNegotiationStrategy;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.sun.domain.Person;
-import com.sun.domain.TestVO;
+import com.sun.domain.BoardVO;
 import com.sun.service.Rservice;
 
 
@@ -47,7 +41,13 @@ public class RserveController {
 		r.mapping();
 		System.out.println(r.matching());
 		System.out.println(r.dividecategory());
-		System.out.println(r.recommend());
+		List<BoardVO> totallist = new ArrayList<BoardVO>();
+		Set<List<BoardVO>> recomboardlist = r.recommend();
+		Iterator<List<BoardVO>> it = recomboardlist.iterator();
+		while(it.hasNext()) {
+			totallist.addAll(it.next());
+		}
+		model.addAttribute("boardlist", totallist);
 	} 
 	
 	
