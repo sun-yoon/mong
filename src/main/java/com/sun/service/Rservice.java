@@ -66,10 +66,11 @@ public class Rservice {
             connection.eval("dbdata <- read.csv(\"d:/category.txt\")");
             connection.eval("rioter.list <- split(dbdata$category, dbdata$user)");
             connection.eval("rioter.transaction <- as(rioter.list, \"transactions\")");
-            connection.eval("rules = apriori(rioter.transaction)");
+            connection.eval("rules = apriori(rioter.transaction, parameter = list(support=0.01, confidence=0.2))");
             connection.eval("rule.list <- as.data.frame(inspect(rules))");
             connection.eval("write.csv(rule.list, \"d:/rule.csv\")");            
             connection.eval("song <- subset.data.frame(rule.list, select = c(lhs,rhs,lift))");
+            connection.eval("song <- subset(song, lhs!=\"{}\")");
             connection.eval("song<-song[order(song[,\"lhs\"]),]");
             connection.eval("write.csv(song,\"d:/lift.txt\")");
             connection.eval("library(recommenderlab)");
@@ -78,7 +79,7 @@ public class Rservice {
             connection.eval("training <- song[split.matrix,]");
             connection.eval("test <- song[-split.matrix,]");
             connection.eval("r <- Recommender(training, method= \"POPULAR\")");
-            connection.eval("recom <- predict(r, song[1:4])");
+            connection.eval("recom <- predict(r, song[1:68], n=5)");
             connection.eval("mong <- as(recom, \"list\")");
             connection.eval("write.csv(mong, \"d:/recom.txt\")");
          } catch (RserveException e) {

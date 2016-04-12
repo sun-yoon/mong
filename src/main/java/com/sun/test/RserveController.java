@@ -40,8 +40,7 @@ public class RserveController {
 	
 	@RequestMapping(value="/ff")
 	public void ff(Model model) throws Exception{
-		List<TestVO> data = r.ff();
-		System.out.println(data);
+		r.ff();		
 		r.rconnect();
 		r.readLift();
 		r.readRecom();
