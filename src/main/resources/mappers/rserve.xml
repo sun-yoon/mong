@@ -27,7 +27,7 @@
       <![CDATA[
          select *
          from board
-         where boa_category = #{category }        
+         where boa_category = #{category } and boa_regdate >= sysdate-7       
       ]]>
    </select>
 </mapper>
