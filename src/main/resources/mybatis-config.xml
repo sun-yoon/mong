@@ -4,6 +4,7 @@
  
  <typeAliases>
  <typeAlias alias="testVO" type="com.sun.domain.TestVO"/>
+ <typeAlias alias="BoardVO" type="com.sun.domain.BoardVO"/>
 
  </typeAliases>
  <mappers>

@@ -47,6 +47,7 @@ public class RserveController {
 		r.mapping();
 		System.out.println(r.matching());
 		System.out.println(r.dividecategory());
+		System.out.println(r.recommend());
 	} 
 	
 	

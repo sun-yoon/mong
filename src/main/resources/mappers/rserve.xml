@@ -22,4 +22,12 @@
         
       ]]>
    </select>
+   
+   <select id="recommend" parameterType="string" resultType="BoardVO">
+      <![CDATA[
+         select *
+         from board
+         where boa_category = #{category }        
+      ]]>
+   </select>
 </mapper>

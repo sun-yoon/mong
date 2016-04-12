@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -20,6 +21,7 @@ import org.rosuda.REngine.Rserve.RConnection;
 import org.rosuda.REngine.Rserve.RserveException;
 import org.springframework.stereotype.Service;
 
+import com.sun.domain.BoardVO;
 import com.sun.domain.TestVO;
 import com.sun.persistence.RDAO;
 
@@ -328,4 +330,15 @@ public class Rservice {
 		return recomset;
 	}
 	
+	public Set<List<BoardVO>> recommend() throws Exception{		
+		Set<List<BoardVO>> boardset = new HashSet<List<BoardVO>>();
+		Set<String> recomset = this.dividecategory();
+		Iterator<String> it = recomset.iterator();
+		while(it.hasNext()) {
+			String category = it.next();			
+			boardset.add(dao.recommend(category));
+		}		
+		
+		return boardset;
+	}
 }
