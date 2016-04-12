@@ -6,6 +6,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -111,7 +112,6 @@ public class Rservice {
 				s= s.replace("lhs","");
 				s= s.replace("rhs","");
 				s= s.replace("lift","");
-//				s= s.replace(",","");
 				s= s.replace("\"","");
 				s= s.replace("0","");
 				s= s.replace("1","");
@@ -340,5 +340,18 @@ public class Rservice {
 		}		
 		
 		return boardset;
+	}
+	
+	public List<BoardVO> getrecomBoard() throws Exception {
+		List<BoardVO> totallist = new ArrayList<BoardVO>();
+		Set<List<BoardVO>> recomboardlist = this.recommend();
+		Iterator<List<BoardVO>> it = recomboardlist.iterator();
+		while(it.hasNext()) {
+			totallist.addAll(it.next());
+		}
+		
+		Collections.shuffle(totallist);
+		
+		return totallist;
 	}
 }
