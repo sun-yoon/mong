@@ -45,6 +45,8 @@ public class RserveController {
 		r.readLift();
 		r.readRecom();
 		r.mapping();
+		System.out.println(r.matching());
+		System.out.println(r.dividecategory());
 	} 
 	
 	

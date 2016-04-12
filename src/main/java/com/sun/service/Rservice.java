@@ -7,14 +7,15 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import javax.inject.Inject;
 
-import org.rosuda.REngine.RList;
 import org.rosuda.REngine.Rserve.RConnection;
 import org.rosuda.REngine.Rserve.RserveException;
 import org.springframework.stereotype.Service;
@@ -275,7 +276,7 @@ public class Rservice {
 	}
 	
 	public List<String> matching() throws Exception {
-		List<String> catelist = this.getCategory(1);
+		List<String> catelist = this.getCategory(190);
 		List<String> catevalue = new ArrayList<String>();
 		String totalCategory = catelist.get(0)+","+catelist.get(1)+","+catelist.get(2);
 		String subCategory1 = catelist.get(0)+","+catelist.get(1);
@@ -311,6 +312,20 @@ public class Rservice {
 		}
 		
 		return catevalue;
+	}
+	
+	public Set<String> dividecategory() throws Exception {
+		List<String> catevalue = this.matching();
+		Set<String> recomset = new HashSet<String>();
+		
+		for(int i=0;i<catevalue.size();i++) {
+			String[] split = catevalue.get(i).split(",");
+			for(int j=0;j<split.length;j++) {
+				recomset.add(split[j]);
+			}
+		}
+		
+		return recomset;
 	}
 	
 }
