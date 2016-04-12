@@ -12,6 +12,7 @@
 <body>
 	<c:forEach items="${boardlist}" var="BoardVO">
 	${BoardVO.boa_snum}</br>
+	
 	${BoardVO.boa_category}</br>
 	</c:forEach>
 	
