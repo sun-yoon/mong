@@ -262,15 +262,54 @@ public class Rservice {
 		return recommendMap;
 	}
 	
-	public List<TestVO> getCategory()throws Exception{
-		List<TestVO> testVO = dao.getCategory();
+	public List<String> getCategory(long memNo)throws Exception{
+		List<String> categoryList = dao.getCategory(memNo);
 		
-		for(int i = 0; i<testVO.size();i++){
-			String cg = testVO.get(i).getCategory();
+		for(int i = 0; i<categoryList.size();i++){
+			String cg = categoryList.get(i);
 			System.out.println(cg);
 			
 		}
-		return testVO;
+		return categoryList;
+	}
+	
+	public List<String> matching() throws Exception {
+		List<String> catelist = this.getCategory(1);
+		List<String> catevalue = new ArrayList<String>();
+		String totalCategory = catelist.get(0)+","+catelist.get(1)+","+catelist.get(2);
+		String subCategory1 = catelist.get(0)+","+catelist.get(1);
+		String subCategory2 = catelist.get(0)+","+catelist.get(2);
+		String subCategory3 = catelist.get(1)+","+catelist.get(2);
+		
+		Map<String, String> catemap = this.mapping();
+		
+		if(catemap.containsKey(totalCategory)) {
+			catevalue.add(catemap.get(totalCategory));
+		}
+		else if(catemap.containsKey(subCategory1) || catemap.containsKey(subCategory2) || catemap.containsKey(subCategory3)) {
+			if(catemap.containsKey(subCategory1)) {
+				catevalue.add(catemap.get(subCategory1));
+			}
+			if(catemap.containsKey(subCategory2)) {
+				catevalue.add(catemap.get(subCategory2));
+			}
+			if(catemap.containsKey(subCategory3)) {
+				catevalue.add(catemap.get(subCategory3));
+			}
+		}
+		else {
+			if(catemap.containsKey(catelist.get(0))) {
+				catevalue.add(catemap.get(catelist.get(0)));
+			}
+			if(catemap.containsKey(catelist.get(1))) {
+				catevalue.add(catemap.get(catelist.get(1)));
+			}
+			if(catemap.containsKey(catelist.get(2))) {
+				catevalue.add(catemap.get(catelist.get(2)));
+			}
+		}
+		
+		return catevalue;
 	}
 	
 }

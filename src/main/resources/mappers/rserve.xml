@@ -13,11 +13,12 @@
       ]]>
    </select>
  	
- 	<select id="getCategory" resultType="TestVo">
+ 	<select id="getCategory" parameterType="Long" resultType="string">
       <![CDATA[
-         select *
+         select category
          from favor_category
-         where mem_snum = 1
+         where mem_snum = #{memNo }
+         order by category
         
       ]]>
    </select>

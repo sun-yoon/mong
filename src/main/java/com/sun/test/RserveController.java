@@ -128,7 +128,7 @@ public class RserveController {
 	
 	@RequestMapping(value="/getCategory")
 	public void getCategory(Model model) throws Exception{
-		List<TestVO> testVO = r.getCategory();
-		model.addAttribute("testVO",testVO);
+		List<String> test = r.matching();
+		System.out.println(test);
 	}
 }

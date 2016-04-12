@@ -22,8 +22,8 @@ public class RDAO {
 		return data;
 	}
 	
-	public List<TestVO> getCategory() throws Exception{
-		List<TestVO> getCategory = session.selectList(namespace+".getCategory");
+	public List<String> getCategory(long memNo) throws Exception{
+		List<String> getCategory = session.selectList(namespace+".getCategory", memNo);
 		return getCategory;
 	}
 }
