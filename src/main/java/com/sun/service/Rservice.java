@@ -83,7 +83,8 @@ public class Rservice {
             connection.eval("training <- song[split.matrix,]");
             connection.eval("test <- song[-split.matrix,]");
             connection.eval("r <- Recommender(training, method= \"POPULAR\")");
-            connection.eval("recom <- predict(r, song[1:68], n=5)");
+            connection.eval("x <- nrow(song)");
+            connection.eval("recom <- predict(r, song[1:x], n=5)");
             connection.eval("mong <- as(recom, \"list\")");
             connection.eval("write.csv(mong, \"d:/recom.txt\")");
          } catch (RserveException e) {
