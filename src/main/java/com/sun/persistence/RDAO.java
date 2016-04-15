@@ -59,9 +59,11 @@ public class RDAO {
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("mem_snum", mem_snum);
 		map.put("score", score);
-		session.update(namespace+".updatescore", map);
-		
+		session.update(namespace+".updatescore", map);		
 	}
 
-	
+	public ScoreVO selectScore(long mem_snum) {
+		ScoreVO score = session.selectOne(namespace+".selectscore", mem_snum);
+		return score;
+	}
 }

@@ -262,4 +262,8 @@ public class ScoreService {
 		
 		dao.updatescore(mem_snum, score);
 	}
+	
+	public void setUserCategory() {
+		
+	}
 }

@@ -91,4 +91,13 @@
          	where mem_snum = #{mem_snum}       
       ]]>
    </update>
+   
+   <select id="selectscore" parameterType="Long" resultType="ScoreVO">
+   		<![CDATA[
+         	select education, IT, game, fashion, daily, health, news, travel, sports, food, music, movie,
+         	book, car, pet, nature, goods, beauty, cartoon, love
+         	from category_score
+         	where mem_snum = #{mem_snum }       
+      ]]>
+   </select>
 </mapper>
