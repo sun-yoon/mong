@@ -1,6 +1,8 @@
 package com.sun.service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -15,11 +17,18 @@ public class ScoreService {
 	@Inject
 	private RDAO dao;
 	
-	public void createScoreTable(long mem_snum) {
+	public void createScoreTable(long mem_snum) throws Exception {
 		dao.createScoreTable(mem_snum);
 	}
 	
-	public void calScore(String mem_id, long mem_snum) {
+	public void createUserCategory(long mem_snum) throws Exception {
+		String[] defaultCategory = {"game", "sports", "movie"};
+		for(int i=0;i<defaultCategory.length;i++) {
+			dao.createUserCategory(mem_snum, defaultCategory[i]);
+		}		
+	}
+	
+	public void calScore(String mem_id, long mem_snum) throws Exception {
 		ScoreVO score = new ScoreVO();
 		long education=0, IT=0, game=0, fashion=0, daily=0;
 		long health=0, news=0, travel=0, sports=0, food=0;
@@ -263,7 +272,14 @@ public class ScoreService {
 		dao.updatescore(mem_snum, score);
 	}
 	
-	public void setUserCategory() {
+	public void setUserCategory(long mem_snum) throws Exception {
+		List<String> categoryRank = dao.selectScore(mem_snum);		
 		
+		dao.deleteUserCategory(mem_snum);
+		
+		for(int i=0;i<3;i++) {
+			dao.updateUserCategory(mem_snum, categoryRank.get(i).toLowerCase());
+			System.out.println(categoryRank.get(i).toLowerCase());
+		}			
 	}
 }

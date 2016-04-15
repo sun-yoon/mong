@@ -38,6 +38,20 @@
       ]]>
    </insert>
    
+   <insert id="createUserCategory" parameterType="map">
+      <![CDATA[
+         insert into favor_category
+         values(#{mem_snum }, #{default })     
+      ]]>
+   </insert>
+   
+   <insert id="updateUserCategory" parameterType="map">
+   		<![CDATA[
+         insert into favor_category
+         values(#{mem_snum }, #{favor })     
+      ]]>
+   </insert>
+   
    <select id="selectCategoryByQueryBoard" parameterType="string" resultType="string">
    		<![CDATA[
          	select b.BOA_CATEGORY category
@@ -92,12 +106,25 @@
       ]]>
    </update>
    
-   <select id="selectscore" parameterType="Long" resultType="ScoreVO">
+   <select id="selectscore" parameterType="Long" resultType="string">
    		<![CDATA[
-         	select education, IT, game, fashion, daily, health, news, travel, sports, food, music, movie,
-         	book, car, pet, nature, goods, beauty, cartoon, love
-         	from category_score
-         	where mem_snum = #{mem_snum }       
+         	WITH T AS (
+  			SELECT * FROM CATEGORY_SCORE where mem_snum=#{mem_snum }
+  			)
+  			SELECT V FROM T
+  			UNPIVOT (C FOR V IN(EDUCATION, IT, GAME, FASHION, DAILY, HEALTH,
+                      NEWS, TRAVEL, SPORTS, FOOD, MUSIC, MOVIE, BOOK, CAR, PET,
+                      NATURE, GOODS, BEAUTY, CARTOON, LOVE))
+                      ORDER BY C DESC     
       ]]>
    </select>
+   
+   <delete id="deleteUserCategory" parameterType="Long">
+   		<![CDATA[
+         	delete from favor_category
+         	where mem_snum = #{mem_snum }
+      	]]>
+   </delete>
+   
+   
 </mapper>
