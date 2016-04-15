@@ -30,4 +30,20 @@
          where boa_category = #{category } and boa_regdate >= sysdate-7       
       ]]>
    </select>
+   
+   <insert id="createscore" parameterType="Long">
+      <![CDATA[
+         insert into category_score
+         values(#{mem_snum },0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0)     
+      ]]>
+   </insert>
+   
+   <select id="selectqueryboard" parameterType="string" resultType="string">
+   		<![CDATA[
+         	select b.BOA_CATEGORY category
+			from member m, board b, query_boardlist q
+			where m.MEM_ID = #{mem_id } and m.MEM_SNUM = q.MEM_SNUM and q.BOA_SNUM = b.BOA_SNUM
+      		and sysdate - q.QUR_REGDATE < 1       
+      ]]>
+   </select>
 </mapper>

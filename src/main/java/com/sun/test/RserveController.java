@@ -11,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.sun.service.Rservice;
+import com.sun.service.ScoreService;
 
 
 
@@ -21,6 +22,9 @@ public class RserveController {
 	
 	@Inject
 	private Rservice r;
+	
+	@Inject
+	private ScoreService scoreservice;
 	
 	@RequestMapping(value="/ff")
 	public void ff(Model model) throws Exception{
@@ -39,5 +43,10 @@ public class RserveController {
 	public void getCategory(Model model) throws Exception{
 		List<String> test = r.matching();
 		System.out.println(test);
+	}
+	
+	@RequestMapping(value="/score")
+	public void scoreCategory() throws Exception {
+		scoreservice.createScoreTable(16);
 	}
 }

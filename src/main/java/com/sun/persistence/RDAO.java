@@ -32,4 +32,13 @@ public class RDAO {
 		List<BoardVO> recomboard = session.selectList(namespace+".recommend", category);
 		return recomboard;
 	}
+
+	public void createScoreTable(long mem_snum) {
+		session.insert(namespace+".createscore", mem_snum);		
+	}
+	
+	public List<String> selectqueryboard(String mem_id) {
+		List<String> queryboard = session.selectList(namespace+".selectqueryboard", mem_id);
+		return queryboard;
+	}
 }

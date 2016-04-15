@@ -338,7 +338,7 @@ public class Rservice {
 		while(it.hasNext()) {
 			String category = it.next();			
 			boardset.add(dao.recommend(category));
-		}		
+		}
 		
 		return boardset;
 	}
@@ -348,6 +348,7 @@ public class Rservice {
 		Set<List<BoardVO>> recomboardlist = this.recommend();
 		Iterator<List<BoardVO>> it = recomboardlist.iterator();
 		while(it.hasNext()) {
+			
 			totallist.addAll(it.next());
 		}
 		
