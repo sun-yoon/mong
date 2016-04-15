@@ -1,6 +1,8 @@
 package com.sun.persistence;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -8,6 +10,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
 import com.sun.domain.BoardVO;
+import com.sun.domain.ScoreVO;
 import com.sun.domain.TestVO;
 
 @Repository
@@ -38,7 +41,27 @@ public class RDAO {
 	}
 	
 	public List<String> selectqueryboard(String mem_id) {
-		List<String> queryboard = session.selectList(namespace+".selectqueryboard", mem_id);
+		List<String> queryboard = session.selectList(namespace+".selectCategoryByQueryBoard", mem_id);
 		return queryboard;
 	}
+	
+	public List<String> selectlikelist(String mem_id) {
+		List<String> queryboard = session.selectList(namespace+".selectCategoryByLikeList", mem_id);
+		return queryboard;
+	}
+	
+	public List<String> selectcommentlist(String mem_id) {
+		List<String> queryboard = session.selectList(namespace+".selectCategoryByBoardComment", mem_id);
+		return queryboard;
+	}
+
+	public void updatescore(long mem_snum, ScoreVO score) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("mem_snum", mem_snum);
+		map.put("score", score);
+		session.update(namespace+".updatescore", map);
+		
+	}
+
+	
 }

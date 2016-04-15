@@ -47,6 +47,7 @@ public class RserveController {
 	
 	@RequestMapping(value="/score")
 	public void scoreCategory() throws Exception {
-		scoreservice.createScoreTable(16);
+		//scoreservice.createScoreTable(16);
+		scoreservice.calScore("qwe", 16);
 	}
 }

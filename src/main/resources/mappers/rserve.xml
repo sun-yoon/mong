@@ -38,7 +38,7 @@
       ]]>
    </insert>
    
-   <select id="selectqueryboard" parameterType="string" resultType="string">
+   <select id="selectCategoryByQueryBoard" parameterType="string" resultType="string">
    		<![CDATA[
          	select b.BOA_CATEGORY category
 			from member m, board b, query_boardlist q
@@ -46,4 +46,49 @@
       		and sysdate - q.QUR_REGDATE < 1       
       ]]>
    </select>
+   
+   <select id="selectCategoryByLikeList" parameterType="string" resultType="string">
+   		<![CDATA[
+         	select b.BOA_CATEGORY category
+			from member m, board b, likelist l
+			where m.MEM_ID = #{mem_id } and m.MEM_SNUM = l.MEM_SNUM and l.BOA_SNUM = b.BOA_SNUM
+      		and sysdate - l.LKL_REGDATE < 1     
+      ]]>
+   </select>
+   
+   <select id="selectCategoryByBoardComment" parameterType="string" resultType="string">
+   		<![CDATA[
+         	select b.BOA_CATEGORY category
+			from member m, board b, board_comment c
+			where m.MEM_ID = #{mem_id } and m.MEM_SNUM = c.MEM_SNUM and c.BOA_SNUM = b.BOA_SNUM
+      		and sysdate - c.COM_REGDATE < 10       
+      ]]>
+   </select>
+   
+   <update id="updatescore" parameterType="map">
+   		<![CDATA[
+         	update category_score
+         	set game = #{score.game },
+         	education = #{score.education },
+         	IT = #{score.IT },
+         	fashion = #{score.fashion },
+         	daily = #{score.daily },
+         	health = #{score.health },
+         	news = #{score.news },
+         	travel = #{score.travel },
+         	sports = #{score.sports },
+         	food = #{score.food },
+         	music = #{score.music },
+         	movie = #{score.movie },
+         	book = #{score.book },
+         	car = #{score.car },
+         	pet = #{score.pet },
+         	nature = #{score.nature },
+         	goods = #{score.goods },
+         	beauty = #{score.beauty },
+         	cartoon = #{score.cartoon },
+         	love = #{score.love }         	
+         	where mem_snum = #{mem_snum}       
+      ]]>
+   </update>
 </mapper>
